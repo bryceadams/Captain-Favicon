@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Captain Favicon\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-01 14:30+1000\n"
+"PO-Revision-Date: 2012-11-01 14:30+1000\n"
+"Last-Translator: \n"
+"Language-Team: Captain Theme\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../captain-favicon.php:64
+msgid "Settings"
+msgstr ""
+
+#: ../includes/settings.php:34
+msgid "Set As Favicon"
+msgstr ""
+
+#: ../includes/settings.php:44 ../includes/settings.php:60
+msgid "Captain Favicon Settings"
+msgstr ""
+
+#: ../includes/settings.php:45
+msgid "Captain Favicon"
+msgstr ""
+
+#: ../includes/settings.php:144
+msgid "Favicon"
+msgstr ""
+
+#: ../includes/settings.php:146
+msgid "Favicon Preview"
+msgstr ""
+
+#: ../includes/settings.php:160
+msgid ""
+"Upload Your Favicon! You can use a service like <a href=\"http://favicon.cc/"
+"\">favicon.cc</a> to create it. Need Help? View <a href=\"http://"
+"captaintheme.com/docs/captain-favicon-documentation/\">Captain Favicon "
+"Documentation</a>."
+msgstr ""
+
+#: ../includes/settings.php:168
+msgid "Upload Favicon"
+msgstr ""
+
+#: ../includes/settings.php:170
+msgid "Delete Favicon"
+msgstr ""
+
+#: ../includes/settings.php:172
+msgid ""
+"Upload a 16px x 16px image. If you want retina-support, upload a 32px x 32px "
+"image."
+msgstr ""
