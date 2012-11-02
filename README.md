@@ -43,6 +43,10 @@ Using an Image Editor like Photoshop/GIMP or an online service like [favicon.cc]
 
 ## Changelog
 
+**Version 1.1 - 02/11/2012:**
+
+*	Code Formatting Clean-Up
+
 **Version 1.0 - 01/11/2012:**
 
 * Initial Release.

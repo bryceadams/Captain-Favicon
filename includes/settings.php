@@ -21,7 +21,7 @@ register_activation_hook( __FILE__, 'ctfavicon_options_init' );*/
 
 function ctfavicon_options_setup() {
 	global $pagenow;
-	if ('media-upload.php' == $pagenow || 'async-upload.php' == $pagenow) {
+	if ( 'media-upload.php' == $pagenow || 'async-upload.php' == $pagenow ) {
 		add_filter( 'gettext', 'replace_thickbox_text' , 1, 2 );
 	}
 }
@@ -31,7 +31,7 @@ function replace_thickbox_text($translated_text, $text ) {
 	if ( 'Insert into Post' == $text ) {
 		$referer = strpos( wp_get_referer(), 'ctfavicon-settings' );
 		if ( $referer != '' ) {
-			return __('Set As Favicon', 'ctfavicon' );
+			return __( 'Set As Favicon', 'ctfavicon' );
 		}
 	}
 
@@ -49,7 +49,7 @@ function ctfavicon_menu_options() {
 	);
 }
 // Load the Admin Options page
-add_action('admin_menu', 'ctfavicon_menu_options');
+add_action( 'admin_menu', 'ctfavicon_menu_options' );
 
 function ctfavicon_admin_options_page() {
 	?>
@@ -64,13 +64,13 @@ function ctfavicon_admin_options_page() {
 			<form id="form-ctfavicon-options" action="options.php" method="post" enctype="multipart/form-data">
 			
 				<?php
-					settings_fields('ctfavicon_options');
-					do_settings_sections('ctfavicon');
+					settings_fields( 'ctfavicon_options' );
+					do_settings_sections( 'ctfavicon' );
 				?>
 			
 				<p class="submit">
-					<input name="ctfavicon_options[submit]" id="submit_options_form" type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings', 'ctfavicon'); ?>" />
-					<input name="ctfavicon_options[reset]" type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults', 'ctfavicon'); ?>" />		
+					<input name="ctfavicon_options[submit]" id="submit_options_form" type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'ctfavicon' ); ?>" />
+					<input name="ctfavicon_options[reset]" type="submit" class="button-secondary" value="<?php esc_attr_e( 'Reset Defaults', 'ctfavicon' ); ?>" />		
 				</p>
 			
 			</form>
@@ -83,11 +83,11 @@ function ctfavicon_options_validate( $input ) {
 	$default_options = ctfavicon_get_default_options();
 	$valid_input = $default_options;
 	
-	$ctfavicon_options = get_option('ctfavicon_options');
+	$ctfavicon_options = get_option( 'ctfavicon_options' );
 	
-	$submit = ! empty($input['submit']) ? true : false;
-	$reset = ! empty($input['reset']) ? true : false;
-	$delete_favicon = ! empty($input['delete_favicon']) ? true : false;
+	$submit = ! empty( $input['submit'] ) ? true : false;
+	$reset = ! empty( $input['reset'] ) ? true : false;
+	$delete_favicon = ! empty( $input['delete_favicon'] ) ? true : false;
 	
 	if ( $submit ) {
 		if ( $ctfavicon_options['favicon'] != $input['favicon']  && $ctfavicon_options['favicon'] != '' )
@@ -110,8 +110,8 @@ function ctfavicon_options_validate( $input ) {
 function delete_image( $image_url ) {
 	global $wpdb;
 	
-	$query = "SELECT ID FROM wp_posts where guid = '" . esc_url($image_url) . "' AND post_type = 'attachment'";  
-	$results = $wpdb -> get_results($query);
+	$query = "SELECT ID FROM wp_posts where guid = '" . esc_url( $image_url ) . "' AND post_type = 'attachment'";  
+	$results = $wpdb -> get_results( $query );
 	
 	foreach ( $results as $row ) {
 		wp_delete_attachment( $row -> ID );
@@ -121,29 +121,29 @@ function delete_image( $image_url ) {
 /********************* JAVASCRIPT ******************************/
 function ctfavicon_options_enqueue_scripts() {
 
-	if (isset($_GET['page']) && $_GET['page'] == 'ctfavicon-settings') {
-		wp_enqueue_script('jquery');
+	if ( isset($_GET['page'] ) && $_GET['page'] == 'ctfavicon-settings' ) {
+		wp_enqueue_script( 'jquery' );
 		
-		wp_enqueue_script('thickbox');
-		wp_enqueue_style('thickbox');
+		wp_enqueue_script( 'thickbox' );
+		wp_enqueue_style( 'thickbox' );
 		
-		wp_enqueue_script('media-upload');
-		wp_enqueue_script('ctfavicon-upload', plugins_url( '/js/upload.js', __FILE__ ), array( 'jquery','media-upload','thickbox'), false, true );
+		wp_enqueue_script( 'media-upload' );
+		wp_enqueue_script( 'ctfavicon-upload', plugins_url( '/js/upload.js', __FILE__ ), array( 'jquery','media-upload','thickbox' ), false, true );
 		
 	}
 	
 }
-add_action('admin_enqueue_scripts', 'ctfavicon_options_enqueue_scripts');
+add_action( 'admin_enqueue_scripts', 'ctfavicon_options_enqueue_scripts' );
 
 
 function ctfavicon_options_settings_init() {
 	register_setting( 'ctfavicon_options', 'ctfavicon_options', 'ctfavicon_options_validate' );
 	
-	add_settings_section('ctfavicon_settings_header', __( '', 'ctfavicon' ), 'ctfavicon_settings_header_text', 'ctfavicon');
+	add_settings_section( 'ctfavicon_settings_header', __( '', 'ctfavicon' ), 'ctfavicon_settings_header_text', 'ctfavicon' );
 	
-	add_settings_field('ctfavicon_setting_favicon',  __( 'Favicon', 'ctfavicon' ), 'ctfavicon_setting_favicon', 'ctfavicon', 'ctfavicon_settings_header');
+	add_settings_field( 'ctfavicon_setting_favicon',  __( 'Favicon', 'ctfavicon' ), 'ctfavicon_setting_favicon', 'ctfavicon', 'ctfavicon_settings_header');
 	
-	add_settings_field('ctfavicon_setting_favicon_preview',  __( 'Favicon Preview', 'ctfavicon' ), 'ctfavicon_setting_favicon_preview', 'ctfavicon', 'ctfavicon_settings_header');
+	add_settings_field( 'ctfavicon_setting_favicon_preview',  __( 'Favicon Preview', 'ctfavicon' ), 'ctfavicon_setting_favicon_preview', 'ctfavicon', 'ctfavicon_settings_header' );
 }
 add_action( 'admin_init', 'ctfavicon_options_settings_init' );
 
@@ -169,7 +169,7 @@ function ctfavicon_setting_favicon() {
 		<?php if ( '' != $ctfavicon_options['favicon'] ): ?>
 			<input id="delete_favicon_button" name="ctfavicon_options[delete_favicon]" type="submit" class="button" value="<?php _e( 'Delete Favicon', 'ctfavicon' ); ?>" />
 		<?php endif; ?>
-		<span class="description"><?php _e('Upload a 16px x 16px image. If you want retina-support, upload a 32px x 32px image.', 'ctfavicon' ); ?></span>
+		<span class="description"><?php _e( 'Upload a 16px x 16px image. If you want retina-support, upload a 32px x 32px image.', 'ctfavicon' ); ?></span>
 	<?php
 }
 
