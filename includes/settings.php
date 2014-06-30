@@ -6,19 +6,6 @@ function ctfavicon_get_default_options() {
 	return $options;
 }
 
-// NOT NEEDED FOR NOW
-/*function ctfavicon_options_init() {
-     $ctfavicon_options = get_option( 'ctfavicon_options' );
-	 
-     if ( false === $ctfavicon_options ) {
-		  // If not, we'll save our default options
-          $ctfavicon_options = ctfavicon_get_default_options();
-		  add_option( 'ctfavicon_options', $ctfavicon_options );
-     }
-	 
-}
-register_activation_hook( __FILE__, 'ctfavicon_options_init' );*/
-
 function ctfavicon_options_setup() {
 	global $pagenow;
 	if ( 'media-upload.php' == $pagenow || 'async-upload.php' == $pagenow ) {
@@ -31,7 +18,7 @@ function replace_thickbox_text($translated_text, $text ) {
 	if ( 'Insert into Post' == $text ) {
 		$referer = strpos( wp_get_referer(), 'ctfavicon-settings' );
 		if ( $referer != '' ) {
-			return __( 'Set As Favicon', 'ctfavicon' );
+			return __( 'Set As Favicon', 'captain-favicon' );
 		}
 	}
 
@@ -41,8 +28,8 @@ function replace_thickbox_text($translated_text, $text ) {
 function ctfavicon_menu_options() {
      add_submenu_page(
 		'options-general.php',
-		__( 'Captain Favicon Settings', 'ctfavicon' ),
-		__( 'Captain Favicon', 'ctfavicon' ),
+		__( 'Captain Favicon Settings', 'captain-favicon' ),
+		__( 'Captain Favicon', 'captain-favicon' ),
 		'administrator',
 		'ctfavicon-settings',
 		'ctfavicon_admin_options_page'
@@ -57,7 +44,7 @@ function ctfavicon_admin_options_page() {
 			
 			<?php screen_icon(); ?>
 		
-			<h2><?php _e( 'Captain Favicon Settings', 'ctfavicon' ); ?></h2>
+			<h2><?php _e( 'Captain Favicon Settings', 'captain-favicon' ); ?></h2>
 			
 			<?php settings_errors( 'ctfavicon-settings-errors' ); ?>
 			
@@ -65,12 +52,12 @@ function ctfavicon_admin_options_page() {
 			
 				<?php
 					settings_fields( 'ctfavicon_options' );
-					do_settings_sections( 'ctfavicon' );
+					do_settings_sections( 'captain-favicon' );
 				?>
 			
 				<p class="submit">
-					<input name="ctfavicon_options[submit]" id="submit_options_form" type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'ctfavicon' ); ?>" />
-					<input name="ctfavicon_options[reset]" type="submit" class="button-secondary" value="<?php esc_attr_e( 'Reset Defaults', 'ctfavicon' ); ?>" />		
+					<input name="ctfavicon_options[submit]" id="submit_options_form" type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'captain-favicon' ); ?>" />
+					<input name="ctfavicon_options[reset]" type="submit" class="button-secondary" value="<?php esc_attr_e( 'Reset Defaults', 'captain-favicon' ); ?>" />		
 				</p>
 			
 			</form>
@@ -139,11 +126,11 @@ add_action( 'admin_enqueue_scripts', 'ctfavicon_options_enqueue_scripts' );
 function ctfavicon_options_settings_init() {
 	register_setting( 'ctfavicon_options', 'ctfavicon_options', 'ctfavicon_options_validate' );
 	
-	add_settings_section( 'ctfavicon_settings_header', __( '', 'ctfavicon' ), 'ctfavicon_settings_header_text', 'ctfavicon' );
+	add_settings_section( 'ctfavicon_settings_header', __( '', 'captain-favicon' ), 'ctfavicon_settings_header_text', 'captain-favicon' );
 	
-	add_settings_field( 'ctfavicon_setting_favicon',  __( 'Favicon', 'ctfavicon' ), 'ctfavicon_setting_favicon', 'ctfavicon', 'ctfavicon_settings_header');
+	add_settings_field( 'ctfavicon_setting_favicon',  __( 'Favicon', 'captain-favicon' ), 'ctfavicon_setting_favicon', 'captain-favicon', 'ctfavicon_settings_header');
 	
-	add_settings_field( 'ctfavicon_setting_favicon_preview',  __( 'Favicon Preview', 'ctfavicon' ), 'ctfavicon_setting_favicon_preview', 'ctfavicon', 'ctfavicon_settings_header' );
+	add_settings_field( 'ctfavicon_setting_favicon_preview',  __( 'Favicon Preview', 'captain-favicon' ), 'ctfavicon_setting_favicon_preview', 'captain-favicon', 'ctfavicon_settings_header' );
 }
 add_action( 'admin_init', 'ctfavicon_options_settings_init' );
 
@@ -157,7 +144,8 @@ function ctfavicon_setting_favicon_preview() {
 
 function ctfavicon_settings_header_text() {
 	?>
-		<p><?php _e( 'Upload Your Favicon! You can use a service like <a href="http://favicon.cc/">favicon.cc</a> to create it. Need Help? View <a href="http://captaintheme.com/docs/captain-favicon-documentation/">Captain Favicon Documentation</a>.', 'ctfavicon' ); ?></p>
+		<p><?php _e( 'Upload Your Favicon! You can use a service like <a href="http://favicon.cc/">favicon.cc</a> to create it. Need Help? View <a href="http://captaintheme.com/docs/captain-favicon-documentation/">Captain Favicon Documentation</a>.', 'captain-favicon' ); ?></p>
+		<p><a href="http://captaintheme.com">More Plugins by Captain Theme</a></p>
 	<?php
 }
 
@@ -165,14 +153,10 @@ function ctfavicon_setting_favicon() {
 	$ctfavicon_options = get_option( 'ctfavicon_options' );
 	?>
 		<input type="hidden" id="favicon_url" name="ctfavicon_options[favicon]" value="<?php echo esc_url( $ctfavicon_options['favicon'] ); ?>" />
-		<input id="upload_favicon_button" type="button" class="button" value="<?php _e( 'Upload Favicon', 'ctfavicon' ); ?>" />
+		<input id="upload_favicon_button" type="button" class="button" value="<?php _e( 'Upload Favicon', 'captain-favicon' ); ?>" />
 		<?php if ( '' != $ctfavicon_options['favicon'] ): ?>
-			<input id="delete_favicon_button" name="ctfavicon_options[delete_favicon]" type="submit" class="button" value="<?php _e( 'Delete Favicon', 'ctfavicon' ); ?>" />
+			<input id="delete_favicon_button" name="ctfavicon_options[delete_favicon]" type="submit" class="button" value="<?php _e( 'Delete Favicon', 'captain-favicon' ); ?>" />
 		<?php endif; ?>
-		<span class="description"><?php _e( 'Upload a 16px x 16px image. If you want retina-support, upload a 32px x 32px image.', 'ctfavicon' ); ?></span>
+		<span class="description"><?php _e( 'Upload a 16px x 16px image. If you want retina-support, upload a 32px x 32px image.', 'captain-favicon' ); ?></span>
 	<?php
 }
-
-
-
-?>
